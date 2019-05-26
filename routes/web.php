@@ -11,7 +11,26 @@
 |
 */
 
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/admin', 'HomeController@index')->name('admin_home');
+
 Route::get('/', function () {
-    return view('welcome');
+    return 'frontend here !';
+})->name('home');
+
+
+Auth::routes();
+
+Route::group([
+    'middleware' => ['auth'],
+    'prefix' => 'admin'
+], function () {
+    Route::resource('projects', 'ProjectsController');
+    Route::resource('tasks', 'TasksController');
+//    projectTasks
+    Route::get('projects/projectTasks/{project}', 'ProjectsController@projectTasks')->name('projectTasks');
 });
 
