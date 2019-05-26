@@ -18,6 +18,8 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->integer('created_by')->unsigned()->nullable();
+            $table->dateTime('created_at')->default(\Carbon\Carbon::now());
+            $table->dateTime('updated_at')->default(\Carbon\Carbon::now());
 
         });
         Schema::table('articles', function (Blueprint $table) {

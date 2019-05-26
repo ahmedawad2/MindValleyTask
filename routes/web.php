@@ -28,9 +28,6 @@ Route::group([
     'middleware' => ['auth'],
     'prefix' => 'admin'
 ], function () {
-    Route::resource('projects', 'ProjectsController');
-    Route::resource('tasks', 'TasksController');
-//    projectTasks
-    Route::get('projects/projectTasks/{project}', 'ProjectsController@projectTasks')->name('projectTasks');
+    Route::resource('articles', 'ArticlesController');
 });
 

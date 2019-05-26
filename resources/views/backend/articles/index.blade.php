@@ -1,11 +1,11 @@
 @extends('backend.layouts.master')
 
-@section('title', 'Index | Projects')
+@section('title', 'Index | Articles')
 
-@section('breadcrumb_header', 'Projects')
+@section('breadcrumb_header', 'Articles')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{route('projects.index')}}">Projects</a></li>
+    <li class="breadcrumb-item"><a href="{{route('articles.index')}}">Articles</a></li>
     <li class="breadcrumb-item active">index</li>
 @endsection
 
@@ -25,8 +25,8 @@
         <div class="col-md-6">
             <div class="form-group row">
                 <div class="col-md-3">
-                    <a href="{{route('projects.create')}}">
-                        <button type="button" class="btn btn-primary btn-min-width mr-1 mb-1">Add Project</button>
+                    <a href="{{route('articles.create')}}">
+                        <button type="button" class="btn btn-primary btn-min-width mr-1 mb-1">Add Article</button>
                     </a>
                 </div>
             </div>
@@ -48,39 +48,33 @@
                 </div>
                 <div class="card-body collapse in">
                     <div class="table-responsive">
-                        <table id="projects" class="table table-bordered border-solid table-sm mb-0">
+                        <table id="articles" class="table table-bordered border-solid table-sm mb-0">
                             <thead class="thead-inverse">
                             <tr>
-                                <th style="text-align: center;">Name</th>
-                                <th style="text-align: center;">Created By</th>
-                                <th style="text-align: center;">Progress</th>
-                                <th style="text-align: center;">Tasks</th>
+                                <th style="text-align: center;">Title</th>
+                                <th style="text-align: center;">Created At</th>
                                 <th style="text-align: center;">Action</th>
                             </tr>
                             </thead>
                             <tbody class="table-striped table-hover">
-                            @foreach($projects as $project)
+                            @foreach($articles as $article)
                                 <tr>
-                                    <td>{{$project->name}}</td>
-                                    <td>{{$project->user->name}}</td>
-                                    <td>{{count($project->tasks) > 0 ? round((count($project->doneTasks) / count($project->tasks)) * 100 , 2) : 0}} %</td>
-                                    <td>
-                                        <a target="_blank" href="{{route('projectTasks', $project->id)}}"><button type="button" class="btn btn-icon btn-primary mr-1"><i class="fa fa-edit"></i></button></a>
-                                    </td>
+                                    <td>{{$article->title}}</td>
+                                    <td>{{$article->created_at->format(\App\Http\Controllers\Controller::DEFAULT_DATE_FORMAT)}}</td>
                                     <td>
                                         <button type="button" class="btn btn-icon btn-danger mr-1" data-toggle="modal"
-                                                data-target="#deleteModal{{$project->id}}"><i class="fa fa-trash"></i>
+                                                data-target="#deleteModal{{$article->id}}"><i class="fa fa-trash"></i>
                                         </button>
-                                        <a target="_blank" href="{{route('projects.edit', $project->id)}}"><button type="button" class="btn btn-icon btn-primary mr-1"><i class="fa fa-edit"></i></button></a>
+                                        <a target="_blank" href="{{route('articles.edit', $article->id)}}"><button type="button" class="btn btn-icon btn-primary mr-1"><i class="fa fa-edit"></i></button></a>
 
                                     </td>
                                 </tr>
 
-                                <div class="modal fade text-xs-left" id="deleteModal{{$project->id}}" tabindex="-1"
+                                <div class="modal fade text-xs-left" id="deleteModal{{$article->id}}" tabindex="-1"
                                      role="dialog" aria-labelledby="myModalLabel10"
                                      aria-hidden="true">
                                     <div class="modal-dialog" role="document">
-                                        <form method="POST" action="{{route('projects.destroy', $project->id)}}">
+                                        <form method="POST" action="{{route('articles.destroy', $article->id)}}">
                                             {{csrf_field()}}
                                             {{method_field('DELETE')}}
                                             <div class="modal-content">
@@ -100,7 +94,7 @@
                                                     </button>
                                                     <button id="saveDelete" type="submit"
                                                             class="btn btn-outline-danger">
-                                                        Save
+                                                        Delete
                                                     </button>
                                                 </div>
                                             </div>
