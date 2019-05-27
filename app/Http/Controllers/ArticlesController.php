@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use Illuminate\Http\UploadedFile;
 
 class ArticlesController extends Controller
 {
@@ -21,6 +22,15 @@ class ArticlesController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->has('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                if ($photo instanceof UploadedFile && $photo->isValid()) {
+                    $photo->storeAs('/',$photo->getClientOriginalName());
+                }
+//                var_dump($photo);
+            }
+        }
+        dd('finis');
         Article::create([
             'title' => $request['title'],
             'body' => $request['body'],

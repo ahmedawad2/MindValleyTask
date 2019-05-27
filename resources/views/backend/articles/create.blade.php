@@ -18,7 +18,8 @@
     <div class="card-body collapse in">
         <div class="card-block">
             {{--<div class="card-text"></div>--}}
-            <form method="POST" action="{{route('articles.store')}}" class="form form-horizontal">
+            <form enctype="multipart/form-data" method="POST" action="{{route('articles.store')}}"
+                  class="form form-horizontal">
                 {{csrf_field()}}
 
                 <div class="form-body">
@@ -29,7 +30,8 @@
                             <div class="form-group row">
                                 <label class="col-md-2 label-control" for="title">Title</label>
                                 <div class="col-md-10">
-                                    <input maxlength="255" type="text" name="title" id="title" class="form-control border-primary"
+                                    <input maxlength="255" type="text" name="title" id="title"
+                                           class="form-control border-primary"
                                            placeholder="Title" required="required">
                                 </div>
                             </div>
@@ -42,6 +44,18 @@
                                 <div class="col-md-10">
                                     <textarea rows="10" name="body" id="body" class="form-control border-primary"
                                               placeholder="Body" required="required"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-md-2 label-control" for="photos">Photos</label>
+                                <div class="col-md-10">
+                                    <input type="file" name="photos[]" id="photos" class="form-control border-primary"
+                                           multiple>
                                 </div>
                             </div>
                         </div>
